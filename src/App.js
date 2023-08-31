@@ -1,7 +1,9 @@
 import { useState } from "react";
+import AnimalShow from "./AnimalShow";
+
 
 const getRandomAnimal = () => {
-    const animals = ['cat', 'dog', 'horse', 'aligator', 'cow', 'bird'];
+    const animals = ['cat', 'dog', 'horse', 'gator', 'cow', 'bird'];
 
     return animals[Math.floor(Math.random() * animals.length)]
 }
@@ -15,13 +17,26 @@ function App() {
         setAnimals([...animals, getRandomAnimal()])
     };
 
+    const renderedAnimals = animals.map((animal, index) => {
+        return <AnimalShow type={animal} key={index} />
+    });
+
+    // it is the same as if we write:
+
+    // const renderedAnimals = animals.map((animal) => {
+    //     return 
+    //         <AnimalShow type={animals[0]}/>
+    //         <AnimalShow type={animals[1]}/>
+    // })
+
     return (
         <div>
             <button onClick={handleClick}>Add Animal</button>
-            <div>{animals}</div>
+            <div>{renderedAnimals}</div>
         </div>
     );
 }
+// whenever we return an array of strings to React, it will automatically print them out as next to each other
 
 export default App;
 
@@ -74,7 +89,7 @@ export default App;
 
 // 1. Define a piece of state using the useState function;
 // 2. Give the value to the useState function. This is the default, initial value for our piece of state;
-// 3. Use the state in some way in our component (ofteh in the returned JSX);
+// 3. Use the state in some way in our component (often in the returned JSX);
 // 4. When user does something, update the state using the function. It causes React to re-render the component.
 
 // 1. When defining a piece of state, we use ARRAY DESTRUCTURING
